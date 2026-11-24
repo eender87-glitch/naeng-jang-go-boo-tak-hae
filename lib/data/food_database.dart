@@ -1,0 +1,405 @@
+import '../models/food_item.dart';
+
+const List<FoodPreset> kFoodDatabase = [
+  FoodPreset(
+    id: 'spinach', name: '시금치', emoji: '🥬', category: '잎채소',
+    defaultZone: 'fridge', fridgeDays: 4, freezerDays: 45, roomDays: 1,
+    fridgeTip: '씻지 않은 채 키친타월에 감싸 밀폐용기나 지퍼백에 넣고 세워서 냉장 보관하세요.',
+    freezerTip: '끓는 물에 살짝 데친 뒤 찬물에 식혀 물기를 꼭 짜서 1회분씩 소분 냉동하세요. 자연 해동 후 나물·국에 활용합니다.',
+    roomTip: '실온에서는 쉽게 시들므로 가급적 냉장 보관하세요.',
+    estimatedPrice: 3500,
+  ),
+  FoodPreset(
+    id: 'lettuce', name: '상추', emoji: '🥗', category: '잎채소',
+    defaultZone: 'fridge', fridgeDays: 4, freezerDays: 14, roomDays: 1,
+    fridgeTip: '물기를 털어내고 키친타월로 감싼 뒤 밀폐용기에 줄기가 아래로 가도록 세워 보관하세요.',
+    freezerTip: '상추는 냉동 시 식감이 무르므로 가급적 냉장 신선 보관 후 4일 이내 섭취를 권장합니다.',
+    roomTip: '실온 보관은 권장하지 않습니다.',
+    estimatedPrice: 3000,
+  ),
+  FoodPreset(
+    id: 'perilla', name: '깻잎', emoji: '🌿', category: '잎채소',
+    defaultZone: 'fridge', fridgeDays: 6, freezerDays: 30, roomDays: 1,
+    fridgeTip: '줄기 끝에만 물에 적신 키친타월을 감싼 뒤 잎에 물이 닿지 않게 밀폐용기에 담아 보관하세요.',
+    freezerTip: '깨끗이 씻어 물기를 완전히 제거한 뒤 장아찌용이나 볶음·찌개용으로 소분 냉동하세요.',
+    roomTip: '실온에서는 잎이 금방 마릅니다.',
+    estimatedPrice: 2500,
+  ),
+  FoodPreset(
+    id: 'green_onion', name: '대파', emoji: '🧅', category: '줄기채소',
+    defaultZone: 'fridge', fridgeDays: 9, freezerDays: 45, roomDays: 2,
+    fridgeTip: '흙이 묻은 채 신문지나 키친타월에 말아 보관하세요. 썰어둔 파는 용기 바닥에 키친타월을 깔아 습기를 잡아야 합니다.',
+    freezerTip: '깨끗이 씻어 물기를 완전히 말린 뒤 송송 썰거나 어슷 썰어 지퍼백에 냉동하세요. 해동 없이 국·볶음에 바로 넣습니다.',
+    roomTip: '뿌리째 화분에 심거나 서늘한 곳에 두면 단기 보관 가능합니다.',
+    estimatedPrice: 3200,
+  ),
+  FoodPreset(
+    id: 'cabbage', name: '양배추', emoji: '🥬', category: '잎채소',
+    defaultZone: 'fridge', fridgeDays: 12, freezerDays: 30, roomDays: 3,
+    fridgeTip: '심지를 도려낸 뒤 물 적신 키친타월을 채우고 랩으로 단단히 감싸 냉장 보관하세요. (절단된 경우 5~7일)',
+    freezerTip: '채 썰거나 한 입 크기로 잘라 데친 뒤 물기를 빼서 소분 냉동하면 볶음·국물 요리에 편리합니다.',
+    roomTip: '통양배추는 서늘하고 통풍이 잘되는 곳에서 3일 정도 보관 가능합니다.',
+    estimatedPrice: 4500,
+  ),
+  FoodPreset(
+    id: 'bean_sprouts', name: '콩나물', emoji: '🌱', category: '나물채소',
+    defaultZone: 'fridge', fridgeDays: 3, freezerDays: 20, roomDays: 1,
+    fridgeTip: '밀폐용기에 콩나물이 잠길 만큼 찬물을 붓고 뚜껑을 닫아 냉장 보관하세요. (이틀마다 물 교체 시 최대 5일)',
+    freezerTip: '데쳐서 식힌 뒤 물기를 짜서 소분 냉동하거나 국물 요리용으로 세척 후 물기를 빼서 냉동하세요.',
+    roomTip: '쉽게 상하므로 반드시 냉장 보관하세요.',
+    estimatedPrice: 2000,
+  ),
+  FoodPreset(
+    id: 'broccoli', name: '브로콜리', emoji: '🥦', category: '꽃채소',
+    defaultZone: 'fridge', fridgeDays: 5, freezerDays: 45, roomDays: 1,
+    fridgeTip: '송이째 랩으로 감싸 공기를 차단해 냉장 보관하세요. 살짝 데쳐 식힌 후 보관하면 7일까지 신선합니다.',
+    freezerTip: '먹기 좋은 크기로 잘라 끓는 소금물에 1분간 데친 뒤 찬물에 식혀 물기를 닦아 소분 냉동하세요.',
+    roomTip: '실온에서는 꽃봉오리가 쉽게 노랗게 변합니다.',
+    estimatedPrice: 3500,
+  ),
+  FoodPreset(
+    id: 'zucchini', name: '애호박', emoji: '🥒', category: '열매채소',
+    defaultZone: 'fridge', fridgeDays: 6, freezerDays: 30, roomDays: 2,
+    fridgeTip: '표면 물기를 닦아 하나씩 키친타월이나 신문지로 감싼 뒤 꼭지가 위로 가도록 세워서 냉장 보관하세요.',
+    freezerTip: '반달 썰기 또는 채 썰어 소금에 살짝 절여 물기를 꼭 짠 뒤 소분 냉동하면 볶음·찌개에 바로 쓸 수 있습니다.',
+    roomTip: '서늘한 그늘에서 2일 정도 보관 가능합니다.',
+    estimatedPrice: 2500,
+  ),
+  FoodPreset(
+    id: 'cucumber', name: '오이', emoji: '🥒', category: '열매채소',
+    defaultZone: 'fridge', fridgeDays: 6, freezerDays: 14, roomDays: 2,
+    fridgeTip: '물기를 닦아 키친타월로 하나씩 감싼 뒤 비닐팩에 넣어 꼭지가 위로 가도록 세워서 보관하세요.',
+    freezerTip: '얇게 썰어 소금에 절인 뒤 물기를 꼭 짜서 냉동하면 오이냉국이나 볶음용으로 활용 가능합니다.',
+    roomTip: '직사광선을 피해 서늘한 곳에 두세요.',
+    estimatedPrice: 2500,
+  ),
+  FoodPreset(
+    id: 'paprika', name: '파프리카', emoji: '🫑', category: '열매채소',
+    defaultZone: 'fridge', fridgeDays: 8, freezerDays: 30, roomDays: 2,
+    fridgeTip: '표면 물기를 완전히 닦아 개별 랩 포장 후 지퍼백에 넣어 신선실에 보관하세요.',
+    freezerTip: '씨를 제거하고 채 썰거나 깍둑썰기해 지퍼백에 펴서 냉동하세요. 볶음밥·파스타에 해동 없이 바로 사용합니다.',
+    roomTip: '실온에서는 껍질이 금방 쭈글쭈글해집니다.',
+    estimatedPrice: 3500,
+  ),
+  FoodPreset(
+    id: 'tomato', name: '토마토', emoji: '🍅', category: '열매채소',
+    defaultZone: 'fridge', fridgeDays: 6, freezerDays: 45, roomDays: 4,
+    fridgeTip: '꼭지를 떼어낸 뒤 키친타월을 깐 밀폐용기에 겹치지 않게 보관하세요. 덜 익은 경우 실온 후숙이 좋습니다.',
+    freezerTip: '깨끗이 씻어 꼭지를 떼고 통째로 지퍼백에 냉동하세요. 물에 살짝 담그면 껍질이 쉽게 벗겨져 소스·스튜용으로 좋습니다.',
+    roomTip: '완숙 전 토마토는 바람이 잘 통하는 실온에서 후숙하면 당도가 올라갑니다.',
+    estimatedPrice: 5000,
+  ),
+  FoodPreset(
+    id: 'carrot', name: '당근', emoji: '🥕', category: '뿌리채소',
+    defaultZone: 'fridge', fridgeDays: 12, freezerDays: 45, roomDays: 4,
+    fridgeTip: '흙이 묻은 채 신문지나 키친타월로 감싸 세워 보관하세요. 세척 당근은 물기를 완전히 닦아 밀폐 보관합니다.',
+    freezerTip: '용도에 맞게 채 썰거나 깍둑썰기한 뒤 키친타월로 수분을 닦아 지퍼백에 납작하게 냉동하세요.',
+    roomTip: '서늘하고 어두운 곳에서 3~4일 보관 가능합니다.',
+    estimatedPrice: 3000,
+  ),
+  FoodPreset(
+    id: 'radish', name: '무', emoji: '🤍', category: '뿌리채소',
+    defaultZone: 'fridge', fridgeDays: 14, freezerDays: 45, roomDays: 5,
+    fridgeTip: '무청을 잘라내고 흙을 털어낸 뒤 신문지나 랩으로 단단히 감싸 세워서 냉장 보관하세요.',
+    freezerTip: '나박 썰기나 채 썰어 소분 냉동하면 국·조림 요리에 해동 없이 바로 넣어 사용할 수 있습니다.',
+    roomTip: '신문지에 싸서 서늘한 곳에 두면 5일 정도 유지됩니다.',
+    estimatedPrice: 3000,
+  ),
+  FoodPreset(
+    id: 'onion', name: '양파', emoji: '🧅', category: '뿌리채소',
+    defaultZone: 'room', fridgeDays: 10, freezerDays: 45, roomDays: 14,
+    fridgeTip: '껍질을 깐 양파는 물기를 완전히 닦아 개별 랩 포장 후 밀폐용기에 넣어 냉장 보관하세요.',
+    freezerTip: '채 썰거나 다져서 지퍼백에 얇게 펴 냉동하면 카레·볶음밥·찌개에 바로 사용할 수 있습니다.',
+    roomTip: '껍질째 망에 담아 바람이 잘 통하는 서늘하고 건조한 곳에 매달아 두면 가장 오래갑니다.',
+    estimatedPrice: 4000,
+  ),
+  FoodPreset(
+    id: 'potato', name: '감자', emoji: '🥔', category: '뿌리채소',
+    defaultZone: 'room', fridgeDays: 10, freezerDays: 30, roomDays: 14,
+    fridgeTip: '냉장 보관 시 전분이 당으로 변하므로 가급적 서늘한 실온에 보관하세요. 껍질을 깐 감자는 찬물에 담가 밀폐 냉장합니다.',
+    freezerTip: '생감자는 식감이 변하므로 삶아서 으깨거나 볶음용으로 살짝 익힌 뒤 식혀서 소분 냉동하세요.',
+    roomTip: '햇빛을 차단한 서늘한 상자에 사과 1알과 함께 넣어두면 싹이 트는 것을 막아줍니다.',
+    estimatedPrice: 4500,
+  ),
+  FoodPreset(
+    id: 'mushroom', name: '버섯류 (새송이·팽이·표고)', emoji: '🍄', category: '버섯류',
+    defaultZone: 'fridge', fridgeDays: 6, freezerDays: 30, roomDays: 1,
+    fridgeTip: '절대 씻지 말고 키친타월로 감싸 밀폐용기에 넣어 습기를 차단하세요. 팽이버섯은 밑동을 자른 뒤 보관하면 좋습니다.',
+    freezerTip: '밑동을 정리해 결대로 찢거나 썰어 지퍼백에 담아 냉동하세요. 해동 없이 찌개·볶음에 바로 투하합니다.',
+    roomTip: '습기와 온도에 약하므로 반드시 냉장 보관하세요.',
+    estimatedPrice: 3000,
+  ),
+  FoodPreset(
+    id: 'garlic', name: '깐마늘', emoji: '🧄', category: '향신채소',
+    defaultZone: 'fridge', fridgeDays: 9, freezerDays: 75, roomDays: 2,
+    fridgeTip: '밀폐용기 바닥에 키친타월이나 설탕을 깔고 키친타월을 덮은 뒤 물기 없는 마늘을 넣어 냉장 보관하세요.',
+    freezerTip: '다진 마늘로 만들어 지퍼백에 얇게 편 뒤 칼등으로 바둑판 금을 그어 냉동하면 한 조각씩 떼어 쓰기 좋습니다.',
+    roomTip: '통마늘은 망에 담아 통풍되는 실온 보관, 깐마늘은 냉장·냉동 보관하세요.',
+    estimatedPrice: 5000,
+  ),
+  FoodPreset(
+    id: 'pork', name: '돼지고기 (삼겹살·목살)', emoji: '🥩', category: '육류',
+    defaultZone: 'fridge', fridgeDays: 3, freezerDays: 45, roomDays: 0,
+    fridgeTip: '공기와 닿지 않게 랩으로 밀착 포장해 냉장실 가장 안쪽 신선 칸에 보관하세요. 3일 초과 시 냉동 이동을 권장합니다.',
+    freezerTip: '1회 조리량씩 랩으로 밀착 포장 후 지퍼백 이중 밀봉하세요. 조리 하루 전 냉장실 저온 해동이 육즙 보존에 최고입니다.',
+    roomTip: '실온 방치 시 즉시 변질됩니다.',
+    estimatedPrice: 12000,
+  ),
+  FoodPreset(
+    id: 'beef', name: '소고기 (구이용·국거리)', emoji: '🥩', category: '육류',
+    defaultZone: 'fridge', fridgeDays: 3, freezerDays: 60, roomDays: 0,
+    fridgeTip: '키친타월로 핏물을 가볍게 닦고 랩으로 공기를 차단해 냉장 보관하세요. 다짐육은 1~2일 내 조리해야 합니다.',
+    freezerTip: '1회분씩 랩 밀착 포장 후 지퍼백에 냉동하세요. 냉장 해동 후 조리 20분 전 실온에 두면 육즙이 살아납니다.',
+    roomTip: '실온 보관은 절대 불가합니다.',
+    estimatedPrice: 18000,
+  ),
+  FoodPreset(
+    id: 'chicken', name: '닭고기 (생닭·닭가슴살)', emoji: '🍗', category: '육류',
+    defaultZone: 'fridge', fridgeDays: 2, freezerDays: 45, roomDays: 0,
+    fridgeTip: '부패 속도가 매우 빠르므로 1~2일 내 조리하거나, 핏물·물기를 닦아 소분 후 즉시 냉동하세요.',
+    freezerTip: '1회 사용량씩 랩으로 싸서 지퍼백에 넣어 급속 냉동하세요. 냉장 해동 또는 밀봉 상태 찬물 해동을 권장합니다.',
+    roomTip: '실온 보관은 절대 불가합니다.',
+    estimatedPrice: 7500,
+  ),
+  FoodPreset(
+    id: 'fish', name: '생선류 (고등어·연어·갈치)', emoji: '🐟', category: '수산물',
+    defaultZone: 'fridge', fridgeDays: 2, freezerDays: 45, roomDays: 0,
+    fridgeTip: '내장과 핏물을 깨끗이 제거하고 소금을 살짝 뿌려 키친타월로 감싼 뒤 랩으로 밀봉해 보관하세요.',
+    freezerTip: '물기를 완전히 제거한 뒤 1토막씩 개별 랩 포장해 지퍼백 냉동하세요. 냉장 해동 후 표면 물기를 닦아 조리합니다.',
+    roomTip: '실온 보관은 불가합니다.',
+    estimatedPrice: 9000,
+  ),
+  FoodPreset(
+    id: 'shrimp', name: '새우 · 오징어', emoji: '🦐', category: '수산물',
+    defaultZone: 'fridge', fridgeDays: 2, freezerDays: 45, roomDays: 0,
+    fridgeTip: '내장과 물기를 제거하고 키친타월을 깐 밀폐용기에 넣어 냉장실 가장 차가운 칸에 보관하세요.',
+    freezerTip: '손질 후 물기를 빼서 소분 냉동하세요. 흐르는 찬물이나 옅은 소금물(약 3%)에 해동하면 탱글한 식감이 살아납니다.',
+    roomTip: '실온 보관은 불가합니다.',
+    estimatedPrice: 11000,
+  ),
+  FoodPreset(
+    id: 'egg', name: '달걀', emoji: '🥚', category: '난류·유제품',
+    defaultZone: 'fridge', fridgeDays: 18, freezerDays: 30, roomDays: 5,
+    fridgeTip: '물세척하지 말고 뾰족한 부분이 아래로 향하게 하여 냉장고 문쪽이 아닌 안쪽 선반에 보관하세요.',
+    freezerTip: '껍질째 냉동하면 터지므로 흰자·노른자를 풀어 밀폐용기에 소분 냉동하거나 삶아서 보관하세요.',
+    roomTip: '서늘한 곳에서 5일 내외 보관 가능합니다.',
+    estimatedPrice: 7000,
+  ),
+  FoodPreset(
+    id: 'tofu', name: '두부', emoji: '🧊', category: '가공식품',
+    defaultZone: 'fridge', fridgeDays: 3, freezerDays: 30, roomDays: 0,
+    fridgeTip: '개봉 후 남은 두부는 밀폐용기에 두부가 잠길 만큼 생수를 붓고 소금 한 꼬집을 넣어 냉장 보관하세요. (매일 물 교체)',
+    freezerTip: '물기를 빼고 썰어서 냉동하면 수분이 빠져나가 쫄깃한 얼린 두부 요리로 활용할 수 있습니다.',
+    roomTip: '실온 보관은 불가합니다.',
+    estimatedPrice: 2200,
+  ),
+  FoodPreset(
+    id: 'milk', name: '우유 · 요거트', emoji: '🥛', category: '유제품',
+    defaultZone: 'fridge', fridgeDays: 5, freezerDays: 30, roomDays: 0,
+    fridgeTip: '표기된 소비기한 이내라도 개봉 후에는 입구를 꽉 닫아 온도 변화가 적은 냉장고 안쪽 선반에 보관하세요.',
+    freezerTip: '우유는 1회분씩 얼음틀이나 지퍼백에 얼려 스무디·라떼·요리용으로 활용할 수 있습니다.',
+    roomTip: '멸균우유 미개봉 외에는 냉장 보관 필수입니다.',
+    estimatedPrice: 3000,
+  ),
+  FoodPreset(
+    id: 'cooked_rice', name: '소분 공기밥', emoji: '🍚', category: '밥·빵류',
+    defaultZone: 'freezer', fridgeDays: 2, freezerDays: 21, roomDays: 0,
+    fridgeTip: '냉장 보관은 전분 노화가 가장 빠르게 일어나 밥이 딱딱해지므로 1~2일 내 드실 게 아니라면 냉동 보관을 권장합니다.',
+    freezerTip: '갓 지은 밥이 따뜻할 때(김이 한 김 빠진 직후) 1인분씩 랩이나 전용 용기에 담아 냉동하세요. 해동 없이 전자레인지 2분 30초 가열!',
+    roomTip: '상온 방치 시 식중독균 번식 위험이 높습니다.',
+    estimatedPrice: 1500,
+  ),
+  FoodPreset(
+    id: 'bread', name: '식빵 · 베이글', emoji: '🍞', category: '밥·빵류',
+    defaultZone: 'freezer', fridgeDays: 3, freezerDays: 25, roomDays: 3,
+    fridgeTip: '냉장실 온도는 빵의 수분을 빼앗아 퍽퍽하게 만듭니다. 3일 이내 섭취 시 실온, 그 이상은 바로 냉동하세요.',
+    freezerTip: '1~2조각씩 랩으로 개별 포장 후 지퍼백에 넣어 냉동하세요. 해동 없이 토스터·에어프라이어에 굽거나 물 한 컵과 함께 전자레인지 20초 가열!',
+    roomTip: '직사광선을 피해 서늘한 실온에서 2~3일 이내 섭취하세요.',
+    estimatedPrice: 4000,
+  ),
+];
+
+FoodPreset? findPresetByName(String name) {
+  final trimmed = name.trim();
+  if (trimmed.isEmpty) return null;
+  for (final preset in kFoodDatabase) {
+    final firstWord = preset.name.split(' ').first;
+    if (preset.name == trimmed || preset.name.contains(trimmed) || trimmed.contains(firstWord)) {
+      return preset;
+    }
+  }
+  return null;
+}
+
+List<FoodItem> buildInitialSampleItems() {
+  final today = todayDateStr();
+  return [
+    FoodItem(
+      id: 'sample-1',
+      name: '돼지고기 삼겹살',
+      emoji: '🥩',
+      category: '육류',
+      zone: 'fridge',
+      registeredDate: today,
+      expiryDate: addDaysStr(today, 1),
+      sourceType: 'fresh',
+      tip: '공기와 닿지 않게 랩으로 밀착 포장해 냉장실 가장 안쪽 신선 칸에 보관하세요. 3일 초과 시 냉동 이동을 권장합니다.',
+      reminderEnabled: true,
+      reminderOffset: 3,
+      estimatedPrice: 12000,
+      memo: '구이용 600g',
+    ),
+    FoodItem(
+      id: 'sample-2',
+      name: '시금치',
+      emoji: '🥬',
+      category: '잎채소',
+      zone: 'fridge',
+      registeredDate: today,
+      expiryDate: addDaysStr(today, 2),
+      sourceType: 'fresh',
+      tip: '씻지 않은 채 키친타월에 감싸 밀폐용기나 지퍼백에 넣고 세워서 냉장 보관하세요.',
+      reminderEnabled: true,
+      reminderOffset: 3,
+      estimatedPrice: 3500,
+      memo: '1단',
+    ),
+    FoodItem(
+      id: 'sample-3',
+      name: '대파',
+      emoji: '🧅',
+      category: '줄기채소',
+      zone: 'fridge',
+      registeredDate: today,
+      expiryDate: addDaysStr(today, 3),
+      sourceType: 'fresh',
+      tip: '흙이 묻은 채 신문지나 키친타월에 말아 보관하세요. 썰어둔 파는 용기 바닥에 키친타월을 깔아 습기를 잡아야 합니다.',
+      reminderEnabled: true,
+      reminderOffset: 3,
+      estimatedPrice: 3200,
+      memo: '손질 전',
+    ),
+    FoodItem(
+      id: 'sample-4',
+      name: '서울우유 1L',
+      emoji: '🥛',
+      category: '유제품',
+      zone: 'fridge',
+      registeredDate: today,
+      expiryDate: addDaysStr(today, 6),
+      sourceType: 'ocr',
+      tip: '표기된 소비기한 이내라도 개봉 후에는 입구를 꽉 닫아 온도 변화가 적은 냉장고 안쪽 선반에 보관하세요.',
+      reminderEnabled: true,
+      reminderOffset: 3,
+      estimatedPrice: 3000,
+      memo: '소비기한 OCR 스캔',
+    ),
+    FoodItem(
+      id: 'sample-5',
+      name: '소분 공기밥',
+      emoji: '🍚',
+      category: '밥·빵류',
+      zone: 'freezer',
+      registeredDate: today,
+      expiryDate: addDaysStr(today, 18),
+      sourceType: 'fresh',
+      tip: '갓 지은 밥이 따뜻할 때(김이 한 김 빠진 직후) 1인분씩 랩이나 전용 용기에 담아 냉동하세요. 해동 없이 전자레인지 2분 30초 가열!',
+      reminderEnabled: true,
+      reminderOffset: 7,
+      estimatedPrice: 4500,
+      memo: '3개 소분',
+    ),
+  ];
+}
+
+class OfflineRecipeTemplate {
+  final String title;
+  final String time;
+  final String style;
+  final String summary;
+  final List<String> keywords;
+  final List<String> extraIngredients;
+  final List<String> steps;
+
+  const OfflineRecipeTemplate({
+    required this.title,
+    required this.time,
+    required this.style,
+    required this.summary,
+    required this.keywords,
+    required this.extraIngredients,
+    required this.steps,
+  });
+}
+
+const List<OfflineRecipeTemplate> kFallbackRecipes = [
+  OfflineRecipeTemplate(
+    title: '대파 삼겹살 두루치기',
+    time: '20분',
+    style: '한식 집밥',
+    summary: '임박한 삼겹살과 대파를 한 번에 듬뿍 넣고 매콤달콤하게 볶아내는 밥도둑 저녁 메인 요리입니다.',
+    keywords: ['돼지고기', '삼겹살', '대파', '양파', '마늘'],
+    extraIngredients: ['고추장 1.5큰술', '고춧가루 1큰술', '간장 1.5큰술', '올리고당 1큰술', '다진마늘 1큰술', '참기름 약간'],
+    steps: [
+      '삼겹살은 한 입 크기로 썰고, 대파는 큼직하게 어슷 썰어 준비합니다.',
+      '양념장(고추장, 고춧가루, 간장, 올리고당, 다진마늘, 후추)을 미리 섞어 둡니다.',
+      '중불 팬에 삼겹살을 먼저 볶아 기름을 낸 뒤 키친타월로 과한 기름을 살짝 닦아냅니다.',
+      '양념장과 대파를 넣고 센 불에서 3~4분간 빠르게 볶은 뒤 참기름으로 마무리합니다.',
+    ],
+  ),
+  OfflineRecipeTemplate(
+    title: '시금치 된장국 & 달걀말이 정식',
+    time: '15분',
+    style: '한식 집밥',
+    summary: '금방 시드는 시금치를 가장 맛있고 건강하게 소비할 수 있는 따뜻한 15분 집밥 한 상입니다.',
+    keywords: ['시금치', '대파', '달걀', '두부'],
+    extraIngredients: ['된장 1.5큰술', '멸치육수(또는 물+코인육수) 600ml', '다진마늘 0.5큰술', '소금 약간'],
+    steps: [
+      '시금치는 뿌리 끝을 다듬어 깨끗이 씻은 뒤 먹기 좋은 길이로 자릅니다.',
+      '냄비에 육수를 끓이다 된장을 풀고 다진마늘을 넣어 2분간 끓입니다.',
+      '손질한 시금치와 대파를 넣고 1분 30초만 살짝 더 끓여 아삭함과 색감을 살립니다.',
+      '곁들임으로 달걀말이를 부쳐 내면 든든한 저녁 한 상이 완성됩니다.',
+    ],
+  ),
+  OfflineRecipeTemplate(
+    title: '냉장고 털이 삼겹살 채소 볶음밥',
+    time: '15분',
+    style: '한식 집밥',
+    summary: '자투리 채소와 육류, 냉동실 공기밥을 활용해 설거지까지 줄이는 원팬 저녁 메뉴입니다.',
+    keywords: ['돼지고기', '삼겹살', '대파', '양파', '당근', '애호박', '밥', '달걀'],
+    extraIngredients: ['배추김치 1컵', '간장 1큰술', '굴소스 0.5큰술', '참기름 1큰술', '김가루'],
+    steps: [
+      '육류와 냉장고 속 자투리 채소를 잘게 깍둑썰기합니다.',
+      '팬에 기름을 두르고 대파와 고기를 먼저 볶아 파기름과 고기향을 냅니다.',
+      '나머지 채소와 김치를 넣고 볶다가 밥과 굴소스·간장을 넣어 고슬고슬하게 볶아줍니다.',
+      '달걀프라이를 반숙으로 올려 참기름과 김가루를 뿌려 완성합니다.',
+    ],
+  ),
+  OfflineRecipeTemplate(
+    title: '마늘 올리브오일 채소·버섯 파스타',
+    time: '20분',
+    style: '양식·파스타',
+    summary: '시금치, 버섯, 파프리카, 토마토 등 냉장고 속 다양한 채소를 풍미 가득하게 즐기는 원팬 파스타입니다.',
+    keywords: ['시금치', '버섯', '토마토', '파프리카', '마늘', '새우'],
+    extraIngredients: ['파스타면 1~2인분', '올리브오일 3큰술', '페페론치노', '소금·후추', '파마산 치즈'],
+    steps: [
+      '끓는 소금물에 파스타면을 포장지 표기 시간보다 1분 덜 삶습니다(면수 1컵 보관).',
+      '팬에 올리브오일을 넉넉히 두르고 편 썬 마늘과 고추를 약불에서 노릇하게 볶습니다.',
+      '손질한 버섯·채소를 볶다가 삶은 면과 면수 반 컵을 넣어 유화시킵니다.',
+      '불 끄기 직전 시금치를 넣어 잔열로 숨을 죽인 뒤 후추와 치즈로 마무리합니다.',
+    ],
+  ),
+  OfflineRecipeTemplate(
+    title: '두부 애호박 고추장 짜글이',
+    time: '25분',
+    style: '한식 집밥',
+    summary: '두부와 애호박, 대파만 있어도 밥 두 공기를 뚝딱 비우게 만드는 칼칼한 국물 자작 짜글이입니다.',
+    keywords: ['두부', '애호박', '대파', '양파', '돼지고기', '감자'],
+    extraIngredients: ['고추장 1큰술', '고춧가루 1.5큰술', '간장 2큰술', '설탕 0.5큰술', '다진마늘 1큰술', '물 250ml'],
+    steps: [
+      '두부와 애호박, 양파는 한 입 크기의 두툼한 사각형으로 썰어 냄비 바닥에 깝니다.',
+      '양념장과 물을 부어 중불에서 보글보글 끓입니다.',
+      '채소에서 채수가 우러나 국물이 자작해지면 어슷 썬 대파를 듬뿍 올리고 3분간 더 졸여 완성합니다.',
+    ],
+  ),
+];
