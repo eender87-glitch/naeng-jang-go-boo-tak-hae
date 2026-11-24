@@ -1,0 +1,66 @@
+name: Build Android APK (냉장고를 부탁해)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-android-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter 3.29.3
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Generate Android Native Project Structure
+        run: |
+          if [ ! -d "android" ]; then
+            flutter create . --platforms=android --org com.fridgeplease --project-name fridge_please
+          fi
+
+      - name: Configure Android Permissions, Desugaring & Launcher Icons
+        run: python3 scripts/setup_android.py
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Build Release APK
+        run: |
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/fridge-please-android.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fridge-please-android-apk
+          path: build/app/outputs/flutter-apk/fridge-please-android.apk
+          retention-days: 90
+
+      - name: Publish Direct Download Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: "냉장고를 부탁해 v1.0.${{ github.run_number }} (Android APK)"
+          body: |
+            ### 📲 안드로이드 스마트폰 설치 방법
+            1. 아래 Assets 목록에서 **`fridge-please-android.apk`** 파일을 터치해 다운로드하세요.
+            2. 다운로드된 파일을 열어 **설치**를 누릅니다. (보안 경고 시 *'이 출처 허용'* 또는 *'무시하고 설치'* 선택)
+            3. 앱 실행 후 **알림 · 설정** 탭에서 알림 권한을 허용하면 앱을 꺼두어도 **D-3 폐기 임박 알람**이 자동으로 울립니다.
+          files: build/app/outputs/flutter-apk/fridge-please-android.apk
